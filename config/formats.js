@@ -717,6 +717,14 @@ exports.Formats = [
 		},
 	},
 	{
+        name: "The Negative Metagame",
+        section: "Other Metagames",
+
+        mod: 'thenegativemetagame',
+        ruleset: ['Pokemon', 'Sleep Clause Mod', 'Species Clause', 'Nickname Clause', 'Moody Clause', 'OHKO Clause', 'Endless Battle Clause', 'HP Percentage Mod', 'Cancel Mod', 'Swagger Clause', 'Team Preview', 'Evasion Moves Clause'],
+        banlist: ['DeepSeaTooth', 'DeepSeaScale', 'Eviolite', 'Huge Power', 'Light Ball', 'Pure Power', 'Smeargle', 'Thick Club', 'Illegal', 'Unreleased']
+    	},
+	{
 		name: "Inverse Battle",
 		desc: [
 			"Battle with an inverted type chart.",
