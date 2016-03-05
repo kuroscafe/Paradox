@@ -627,12 +627,37 @@ exports.Formats = [
 		banlist: ['Allow CAP', 'Crucibelle'],
 	},
 	{
+        	name: "VoltTurn Mayhem",
+	        section: "Other Metagames",
+    
+        	ruleset: ['Pokemon', 'Standard', 'Team Preview'],
+        	banlist: ['Uber', 'Soul Dew', 'Gengarite', 'Kangaskhanite', 'Lucarionite'],
+        	onModifyMove: function (move) {
+	     if (move.target && !move.nonGhostTarget && (move.target === "normal" || move.target === "any" || move.target === "randomNormal" || move.target === "allAdjacent" || move.target === "allAdjacentFoes")) {
+        	        move.selfSwitch = true;
+        	    }
+        	}
+    	},
+	{
 		name: "Battle Factory",
 		section: "Other Metagames",
 
 		team: 'randomFactory',
 		ruleset: ['Pokemon', 'Sleep Clause Mod', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Mega Rayquaza Clause'],
 	},
+	{
+        	name: "Protean Palace",
+		section: "Other Metagames",
+        	ruleset: ['Pokemon', 'Standard', 'Team Preview'],
+        	banlist: ['Uber', 'Soul Dew', 'Gengarite', 'Kangaskhanite', 'Lucarionite'],
+		onPrepareHit: function (source, target, move) {
+        	    var type = move.type;
+        	    if (type && type !== '???' && source.getTypes().join() !== type) {
+        	        if (!source.setType(type)) return;
+        	        this.add('-start', source, 'typechange', type);
+        	    }
+          }
+    	},
 	{
 		name: "Challenge Cup 1v1",
 		section: "Other Metagames",
