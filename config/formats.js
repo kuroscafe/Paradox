@@ -627,6 +627,18 @@ exports.Formats = [
 		banlist: ['Allow CAP', 'Crucibelle'],
 	},
 	{
+        	name: "VoltTurn Mayhem",
+	        section: "Other Metagames",
+    
+        	ruleset: ['Pokemon', 'Standard', 'Team Preview'],
+        	banlist: ['Uber', 'Soul Dew', 'Gengarite', 'Kangaskhanite', 'Lucarionite'],
+        	onModifyMove: function (move) {
+	     if (move.target && !move.nonGhostTarget && (move.target === "normal" || move.target === "any" || move.target === "randomNormal" || move.target === "allAdjacent" || move.target === "allAdjacentFoes")) {
+        	        move.selfSwitch = true;
+        	    }
+        	}
+    	},
+	{
 		name: "Battle Factory",
 		section: "Other Metagames",
 
