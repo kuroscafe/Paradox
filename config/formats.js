@@ -669,6 +669,26 @@ exports.Formats = [
 		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
 	},
 	{
+        	name: "Gods Among Us",
+        	desc: [
+        	    "All Uber Pok&eacute;mon have their base stats nerfed and are introduced into OU",
+        	    "&bullet; <a href=\"http://www.smogon.com/forums/threads/3549611/\">Gods Among Us</a>"
+        	],
+        	section: "Other Metagames",
+ 
+        	mod: "godsamongus",
+        	ruleset: ['Pokemon', 'Standard', 'Baton Pass Clause', 'Swagger Clause', 'Same Type Clause', 'Team Preview', 'Mega Rayquaza Clause'],
+        	banlist: ['Soul Dew'],
+        	onValidateTeam: function (team, format) {
+        	    var megasnum = 0;
+        	    for (var i = 0; i < team.length; i++) {
+        	        var item = team[i].getItem(set.item);
+        	        if (item.megastone || item.id === ("redorb" || "blueorb")) {megasnum++};
+        	    };
+        	    if (megasnum > 1) return ["Primal Clause limits you to a maximum of one Mega or Primal."];
+        	}
+    	},
+	{
 		name: "Balanced Hackmons",
 		desc: [
 			"&bullet; <a href=\"https://www.smogon.com/forums/threads/3489849/\">Balanced Hackmons</a>",
