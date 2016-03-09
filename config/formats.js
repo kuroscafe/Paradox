@@ -614,6 +614,13 @@ exports.Formats = [
 		},
 	},
 	{
+        	name: "Anti-Vaxxers",
+		desc: ["All type-based immunities cease to apply."],
+        	section: "Other Metagames",
+        	mod: "antivaxxers",
+        	ruleset: ["OU"],
+	},
+	{
 		name: "CAP",
 		desc: [
 			"&bullet; <a href=\"https://www.smogon.com/forums/threads/3537407/\">CAP Metagame Discussion</a>",
