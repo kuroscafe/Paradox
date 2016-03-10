@@ -617,6 +617,7 @@ exports.Formats = [
         	name: "Anti-Vaxxers",
 		desc: ["All type-based immunities cease to apply."],
         	section: "Other Metagames",
+        	column: 2,
         	mod: "antivaxxers",
         	ruleset: ["OU"],
 	},
