@@ -134,6 +134,15 @@ function handleBoughtItem(item, user, cost) {
 }
 
 exports.commands = {
+	
+	dicehelp: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		this.sendReplyBox(
+			'Dice game commands: <br />' + 
+			'/startdice <bet> - Starts a game.<br />' + 
+			'/joindice - Joins the game.<br />' + 
+			'/enddice - Forcibly ends the game.'
+		);
 	atm: 'wallet',
 	purse: 'wallet',
 	wallet: function (target, room, user) {
