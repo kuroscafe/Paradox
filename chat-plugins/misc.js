@@ -8,6 +8,36 @@ let moment = require('moment');
 let request = require('request');
 
 let messages = [
+        "ventured into Shrek's Swamp.",
+	"disrespected the OgreLord!",
+	"used Explosion!",
+	"was swallowed up by the Earth!",
+	"was eaten by Lex!",
+	"was sucker punched by Absol!",
+	"has left the building.",
+	"got lost in the woods!",
+	"left for their lover!",
+	"couldn't handle the coldness of Frost!",
+	"was hit by Magikarp's Revenge!",
+	"was sucked into a whirlpool!",
+	"got scared and left the server!",
+	"went into a cave without a repel!",
+	"got eaten by a bunch of piranhas!",
+	"ventured too deep into the forest without an escape rope",
+	"got shrekt",
+	"woke up an angry Snorlax!",
+	"was forced to give jd an oil massage!",
+	"was used as shark bait!",
+	"peered through the hole on Shedinja's back",
+	"received judgment from the almighty Arceus!",
+	"used Final Gambit and missed!",
+	"went into grass without any Pokemon!",
+	"made a Slowbro angry!",
+	"took a focus punch from Breloom!",
+	"got lost in the illusion of reality.",
+	"ate a bomb!",
+	"left for a timeout!",
+	"fell into a snake pit!",
 	"has vanished into nothingness!",
 	"used Explosion!",
 	"fell into the void.",
@@ -162,7 +192,7 @@ exports.commands = {
 			return (part < 0x10 ? '0' : '') + part.toString(16);
 		}).join('');
 
-		room.addRaw("<strong><font color=\"" + colour + "\">~~ " + Tools.escapeHTML(message) + " ~~</font></strong>");
+		room.addRaw("<strong><i><b><font color=\"" + colour + "\">~~ " + Tools.escapeHTML(message) + " ~~</font></b></i></strong>");
 		user.disconnectAll();
 	},
 	poofhelp: ["/poof - Disconnects the user and leaves a message in the room."],
