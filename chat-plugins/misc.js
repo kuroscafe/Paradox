@@ -4,6 +4,8 @@
 
 'use strict';
 
+var fs = require('fs');
+var color=require('../config/color.js')
 let moment = require('moment');
 let request = require('request');
 
@@ -41,33 +43,164 @@ function clearRoom(room) {
 }
 
 exports.commands = {
-	stafflist: 'authority',
-	auth: 'authority',
-	authlist: 'authority',
-	authority: function (target, room, user, connection) {
-		let rankLists = {};
-		let ranks = Object.keys(Config.groups);
-		for (let u in Users.usergroups) {
-			let rank = Users.usergroups[u].charAt(0);
-			// In case the usergroups.csv file is not proper, we check for the server ranks.
-			if (ranks.indexOf(rank) > -1) {
-				let name = Users.usergroups[u].substr(1);
-				if (!rankLists[rank]) rankLists[rank] = [];
-				if (name) rankLists[rank].push(((Users.getExact(name) && Users.getExact(name).connected) ? '**' + name + '**' : name));
+	
+	helixfossil: 'm8b',
+	helix: 'm8b',
+	magic8ball: 'm8b',
+	m8b: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		var random = Math.floor(20 * Math.random()) + 1;
+		var results = '';
+		if (random == 1) {
+			results = 'Signs point to yes.';
+		}
+		if (random == 2) {
+			results = 'Yes.';
+		}
+		if (random == 3) {
+			results = 'Reply hazy, try again.';
+		}
+		if (random == 4) {
+			results = 'Without a doubt.';
+		}
+		if (random == 5) {
+			results = 'My sources say no.';
+		}
+		if (random == 6) {
+			results = 'As I see it, yes.';
+		}
+		if (random == 7) {
+			results = 'You may rely on it.';
+		}
+		if (random == 8) {
+			results = 'Concentrate and ask again.';
+		}
+		if (random == 9) {
+			results = 'Outlook not so good.';
+		}
+		if (random == 10) {
+			results = 'It is decidedly so.';
+		}
+		if (random == 11) {
+			results = 'Better not tell you now.';
+		}
+		if (random == 12) {
+			results = 'Very doubtful.';
+		}
+		if (random == 13) {
+			results = 'Yes - definitely.';
+		}
+		if (random == 14) {
+			results = 'It is certain.';
+		}
+		if (random == 15) {
+			results = 'Cannot predict now.';
+		}
+		if (random == 16) {
+			results = 'Most likely.';
+		}
+		if (random == 17) {
+			results = 'Ask again later.';
+		}
+		if (random == 18) {
+			results = 'My reply is no.';
+		}
+		if (random == 19) {
+			results = 'Outlook good.';
+		}
+		if (random == 20) {
+			results = 'Don\'t count on it.';
+		}
+		return this.sendReplyBox('' + results + '');
+	},
+	
+		coins: 'coingame',
+		coingame: 'toss',
+	toss: 'coin',
+	coin: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		var random = Math.floor(2 * Math.random()) + 1;
+		var results = '';
+		if (random == 1) {
+			results = '<img src="http://surviveourcollapse.com/wp-content/uploads/2013/01/zinc.png" width="15%" title="Heads!"><br>It\'s heads!';
+		}
+		if (random == 2) {
+			results = '<img src="http://upload.wikimedia.org/wikipedia/commons/e/e5/2005_Penny_Rev_Unc_D.png" width="15%" title="Tails!"><br>It\'s tails!';
+		}
+		return this.sendReplyBox('<center><font size="3"><i><u><b>Coin Game!</b></u></i></font><br>' + results + '');
+	},
+	 rcolor:'color',
+     color: function(target, room, user) {
+		if (!this.canBroadcast()) return;
+		if (target === 'list' || target === 'help' || target === 'options') {
+			return this.sendReplyBox('The random colors are: <b><font color="red">Red</font>, <font color="blue">Blue</font>, <font color="orange">Orange</font>, <font color="green">Green</font>, <font color="teal">Teal</font>, <font color="brown">Brown</font>, <font color="black">Black</font>, <font color="purple">Purple</font>, <font color="pink">Pink</font>, <font color="gray">Gray</font>, <font color="tan">Tan</font>, <font color="gold">Gold</font>, <font color=#CC0000>R</font><font color=#AE1D00>a</font><font color=#913A00>i</font><font color=#745700>n</font><font color=#577400>b</font><font color=#3A9100>o</font><font color=#1DAE00>w</font>.');
+		}
+		var colors = ['Red', 'Blue', 'Orange', 'Green', 'Teal', 'Brown', 'Black', 'Purple', 'Pink', 'Grey', 'Tan', 'Gold'];
+		var results = colors[Math.floor(Math.random() * colors.length)];
+		if (results == 'Rainbow') {
+			return this.sendReply('The random color is :<b><font color=#CC0000>R</font><font color=#AE1D00>a</font><font color=#913A00>i</font><font color=#745700>n</font><font color=#577400>b</font><font color=#3A9100>o</font><font color=#1DAE00>w</font></b>');
+		} else {
+			return this.sendReplyBox('The random color is: <b><font color=' + results + '>' + results + '</font></b>');
+		}
+	},
+	
+globalauth: 'gal',
+	stafflist: 'gal',
+	authlist: 'gal',
+	auth: 'gal',
+	staff: 'gal',
+	gal: function(target, room, user, connection) {
+		fs.readFile('config/usergroups.csv', 'utf8', function(err, data) {
+			var staff = {
+				"admins": [],
+				"leaders": [],
+				"mods": [],
+				"drivers": [],
+				"voices": []
+			};
+			var row = ('' + data).split('\n');
+			for (var i = row.length; i > -1; i--) {
+				if (!row[i]) continue;
+				var rank = row[i].split(',')[1].replace("\r", '');
+				var person = row[i].split(',')[0];
+				function nameColor (name) {
+					if (Users.getExact(name) && Users(name).connected) {
+						return '<b><i><font color="' + color(name) + '">' + Tools.escapeHTML(Users.getExact(name).name) + '</font></i></b>';
+					} else {
+						return '<font color="' + color(name) + '">' + Tools.escapeHTML(name) + '</font>';
+					}
+				}
+				switch (rank) {
+					case '~':
+						staff['admins'].push(nameColor(person));
+						break;
+					case '&':
+						if (toId(person) === 'tintins') break;
+						staff['leaders'].push(nameColor(person));
+						break;
+					case '@':
+						staff['mods'].push(nameColor(person));
+						break;
+					case '%':
+						staff['drivers'].push(nameColor(person));
+						break;
+					case '+':
+						staff['voices'].push(nameColor(person));
+						break;
+					default:
+						continue;
+				}
 			}
-		}
-
-		let buffer = [];
-		Object.keys(rankLists).sort(function (a, b) {
-			return (Config.groups[b] || {rank: 0}).rank - (Config.groups[a] || {rank: 0}).rank;
-		}).forEach(function (r) {
-			buffer.push((Config.groups[r] ? r + Config.groups[r].name + "s (" + rankLists[r].length + ")" : r) + ":\n" + rankLists[r].sort().join(", "));
+			connection.popup('|html|' +
+				'<h3>Paradox Authority List:</h3>' +
+				'<b><u>~Administrators (' + staff['admins'].length + ')</u></b>:<br />' + staff['admins'].join(', ') +
+				'<br /><b><u>&Leaders (' + staff['leaders'].length + ')</u></b>:<br />' + staff['leaders'].join(', ') +
+				'<br /><b><u>@Moderators (' + staff['mods'].length + ')</u></b>:<br />' + staff['mods'].join(', ') +
+				'<br /><b><u>%Drivers (' + staff['drivers'].length + ')</u></b>:<br />' + staff['drivers'].join(', ') +
+				'<br /><b><u>+Voices (' + staff['voices'].length + ')</u></b>:<br />' + staff['voices'].join(', ') +
+				'<br /><br />(<b>Bold</b> / <i>italic</i> = <font color ="green">currently online</font>)'
+			);
 		});
-
-		if (!buffer.length) {
-			return connection.popup("This server has no auth.");
-		}
-		connection.popup(buffer.join("\n\n"));
 	},
 
 	clearall: function (target, room, user) {
