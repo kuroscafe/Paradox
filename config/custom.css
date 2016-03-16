@@ -611,6 +611,10 @@
   * Custom Colors *
   **************/
  
+.chat.chatmessage-pieddychomp  strong {
+    color:blue !important;
+  }
+
 .chat.chatmessage-ransei  strong {
     color:red !important;
   }
