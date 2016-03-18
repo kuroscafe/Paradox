@@ -611,6 +611,10 @@
   * Custom Colors *
   **************/
  
+.chat.chatmessage-charizard8888  strong {
+    color:black !important;
+  }
+  
 .chat.chatmessage-pieddychomp  strong {
     color:blue !important;
   }
