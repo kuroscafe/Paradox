@@ -1,11 +1,10 @@
 body {
-  background: url("http://i.imgur.com/JHaiSv9.jpg?3") bottom left !important;
+  background: url("http://i.imgur.com/IHDlWQI.jpg?1") bottom left !important;
 }
 
 /* Header */
-
 .header {
-  background: rgba(255, 199, 24, 0.6) url("http://i.imgur.com/eZBtvKy.png") no-repeat;
+  background: rgba(255, 218, 101, 0.6) url("http://i.imgur.com/K7asjnH.png") no-repeat;
 }
 
 .header .logo {
@@ -14,45 +13,45 @@ body {
 
 .maintabbarbottom {
   background:  #FFC04D;
-  border-color: #b26735;
+  border-color: #B28635;
 }
 
 .tabbar a.button.notifying {
-  background: #4d8cff;
-  border-color: #2e5499;
+  background: #E5AC45;
+  border-color: #CE9A3E;
   text-shadow: none;
 }
 
 .tabbar a.button.notifying:hover {
   background: #FFC04D;
-  border-color: #b26735;
+  border-color: #B28635;
 }
 
 .tabbar a.button.cur,
 .tabbar a.button.cur:hover {
   background: #FFC04D;
-  border-color: #b26735;
-  color: #5e080d;
+  border-color: #B28635;
+  color: #551907;
   text-shadow: none;
 }
 
 .tabbar a.button {
-  background: #94efff;
-  border-color: #35a0b2;
-  color: #000066;
+  background: #FFD282;
+  border-color: #B28635;
+  color: #551907;
   text-shadow: none;
 }
 
 .tabbar a.button:hover {
-  background: #99ccff;
+  background: #FFC65E;
 }
 
 .tabbar .closebutton {
-  color: black;
+  color: #551907;
 }
 
 .tabbar .closebutton:hover {
-  color: black;
+  color: #551907;
 }
 
 .userbar .username {
@@ -60,37 +59,47 @@ body {
 }
 
 .userbar button.icon {
-  background: #94efff;
-  border: 1px solid #3d70cc;
+  background: #FFC65E;
+  border: 1px solid #B28635;
   padding: 0 4px;
-  color: #2e5499;
-  text-shadow: 0px -1px 0px #0F1D46;
+  color: #551907;
+  text-shadow: 0px -1px 0px #FFC04D;
 }
 
 .userbar button.icon:hover {
-  background: #99ccff;
-  border: 1px solid #3d70cc;
+  background: #FFD282;
+  border: 1px solid #B28635;
 }
+
+/*
+Shades Of Gold Used
+Light Color: #FFD282;
+Dark Color: #FFC65E;
+Darker Color: #FFC04D;
+Border Color: #B28635;
+Brownish-Maroon
+Text Color: #551907;
+*/
 
 /* Roomlist */
 
 .roomlist h2 {
-  color: #00CCCC;
-  text-shadow: none;
+  color: #00E5E5;
+  text-shadow: -1px -1px 1px #000000;
 }
 
 .roomlist a.ilink {
-  background: rgba(255, 153, 51, 0.85);
-  color: #000066;
+  background: #FFC65E;
+  color: #551907;
   text-shadow: none;
-  border-color: #000066;
+  border-color: #B28635;
 }
 
 .roomlist a.ilink:hover {
-  background: rgba(255, 183, 112, 0.85);
-  color: #000066;
+  background: #FFC04D;
+  color: #551907;
   text-shadow: none;
-  border-color: #800000;
+  border-color: #B28635;
 }
 
 .roomcounters button {
@@ -149,7 +158,7 @@ body {
 /* Chat-Log */
  
 .chat-log {
-  background: url("") top right no-repeat rgba(235, 235, 235, 0.785);
+  background: rgba(255, 247, 251, 0.8) url("http://i.imgur.com/o037TX2.png?2") top right no-repeat ;
 }
 
 .chat-log-add {
@@ -176,15 +185,15 @@ body {
 
 .menugroup .button {
   background: #FFC04D !important;
-  border-color: #b26735 !important;
-  color: #000000 !important; 
+  border-color: #B28635 !important;
+  color: #551907 !important; 
   text-shadow: none;
 }
 
 .menugroup .button:hover {
-  background: #94efff !important;
-  border-color: #35a0b2 !important;
-  color: #000000 !important;
+  background: #FFD282 !important;
+  border-color: #B28635 !important;
+  color: #551907 !important;
   text-shadow: none;
 }
 
@@ -211,15 +220,16 @@ body {
 }
  
 .battle-log {
-  background: url("http://i.imgur.com/vIYclIh.png");
-  border-color: #413B45;
+  background: url("http://i.imgur.com/If1aM3Q.png");
+  border-color: #B28635;
 }
 
 .message-error {
-  border: 1px solid #413B45;
-  background: #ECB3B4;
-  color: #413B45;
+  border: 1px solid #A60000;
+  background: #FFB2B2;
+  color: #A60000;
   margin-bottom: 1px;
+  padding: 3px;
 }
 
 .battle-log .chat {
@@ -229,94 +239,50 @@ body {
 .battle-log h2 {
   text-align: right;
   font-style: italic;
-  border-color: #413B45;
-  background: #FABCBC;
-  color: #413B45;
+  border-color: #B28635;
+  background: #FFD282;
+  color: #551907;
 }
 
 .battle-log-add {
-  background: #FABCBC;
-  border: 1px solid #413B45;
-  color: #413B45;
+  background: #FFD282;
+  border: 1px solid #B28635;
+  color: #551907;
 }
 
 .battle {
-  border-color: #413B45;
+  border-color: #B28635;
 }
 
 .battle-log .rated strong {
-  background: #2D3459;
+  background: #FFD282;
 }
 
 .battle-log .chat strong {
-  color: #2D3459;
+  color: #FFD282;
 }
 
 .rightbar, .leftbar {
-  border-color: #ff6600;    
-  background: rgba(255, 102, 0, 0.5);
+  border-color: #FFC04D;    
+  background: rgba(255, 192, 77, 0.5);
 }
 
 .trainer strong {
-  color: #413B45;
+  color: #800000;
+  text-shadow: -1px -1px 1px #FF7F7F;
+  padding: 5px;
 }
 
 .trainer div {
   opacity: 1;
 }
 
-.turnstatus-protect {
-  background:url(http://i.imgur.com/RVxCoHz.png);
-  opacity:1!important;
-  height:103px!important;
-  width:150px!important;
-  border-radius:0;
-  border-width:0;
-  box-shadow:none;
-}
-
-.sidecondition-safeguard {
-  background:url(http://i.imgur.com/FrCoWCW.png);
-  opacity:0.6!important;
-  height:90px!important;
-  width:130px!important;
-  border-radius:0;
-  border-width:0;
-  box-shadow:none;
-}
-
-.sidecondition-reflect {
-  background:url(http://i.imgur.com/X1XDxVB.png);
-  opacity:0.7!important;
-  height:90px!important;
-  width:130px!important;
-  border-radius:0;
-  border-width:0;
-  box-shadow:none;
-}
-
-.sidecondition-lightscreen {
-  background:url(http://i.imgur.com/8eLftNA.png);
-  opacity:0.6!important;
-  height:90px!important;
-  width:130px!important;
-  border-radius:0;
-  border-width:0;
-  box-shadow:none;
-}
+/* New CSS Design Done Till here */
 
 /* PM-Window */
 
 .pm-window h3 small {
   color: #000000;
-}
-
-.pm-window.focused h3, .pm-window.focused h3:hover {
-  border-color:  #000000;
-  background:  rgb(0, 51, 153) bottom right no-repeat;
-  background-position: 200px;
-  color:  #000000;
-  text-shadow: 0px -1px 0px  #000000;
 }
 
 .pm-window h3:hover .minimizebutton, .pm-window h3 .closebutton, .pm-window h3 .minimizebutton {
@@ -340,46 +306,37 @@ body {
 }
 
 .pm-window h3.pm-notifying:hover {
-  background: #75FFBC;
-  border-color: #75FFBC;
+  background: #FFDA80;
+  border-color: #B28635;
   text-shadow: none;
-  color: #202C46;
+  color: #551907;
 }
 
 .pm-window h3 {
-  background: rgba(255, 102, 0, 0.5) url("http://www.pokestadium.com/assets/img/sprites/misc/icons/amaura.png") bottom right no-repeat;
+  background: rgba(255, 218, 128, 0.7) url("http://www.pokestadium.com/assets/img/sprites/misc/icons/amaura.png") bottom right no-repeat;
   background-position: 225px;
+  border: 1px solid #000000;
   color: #000000;
   text-shadow: none;
+  box-shadow: inset 1px 1px 2px #FFDA80;
 }
 
 .pm-window h3:hover {
-  background: rgba(255, 80, 80, 0.6) url("http://www.pokestadium.com/assets/img/sprites/misc/icons/aurorus.png") bottom right no-repeat;
+  background: rgba(255, 209, 98, 0.7) url("http://www.pokestadium.com/assets/img/sprites/misc/icons/aurorus.png") bottom right no-repeat;
   background-position: 225px;
-  color: #4d0000;
+  color: #000000;
   text-shadow: none;
+  box-shadow: inset 1px 1px 2px #FFD162;
 }
 
 .pm-window.focused h3,
 .pm-window.focused h3:hover {
-  background: rgba(255, 0, 0, 0.6) url("http://pldh.net/media/pokecons_action/478.gif") bottom right no-repeat;
+  background: rgba(255, 203, 76, 0.8) url("http://pldh.net/media/pokecons_action/478.gif") bottom right no-repeat;
   background-position: 225px;
-  border-color: rgba(69,245,160,0.6);
-  color: #EEFCFD;
-  text-shadow: none;
-}
-
-.pm-window h3 .closebutton:hover {
-  color: #FF7683;
-}
-
-.pm-window h3 .minimizebutton:hover {
-  color: #FFE076;
-
-}
-
-.pm-window h3.pm-notifying .closebutton:hover + .minimizebutton {
-  color: #000000 !important;
+  border: 1px solid #000000;
+  color: #C50202;
+  text-shadow: -1px -1px 1px #000000;
+  box-shadow: inset 1px 1px 2px #FFD162;
 }
 
 .pm-log, .pm-window.focused .pm-log {
@@ -405,8 +362,8 @@ body {
 }
 
 .ps-popup {
-  background: #94efff;
-  border: 1px solid #48e4ff;
+  background: #FFDB46;
+  border: 1px solid #B28635;
 }
 
 .credits h2 {
@@ -430,12 +387,12 @@ a.subtle, .credits ul li p, .credits ul {
 }
 
 .avatarlist button {
-  border: 1px solid #99ffcc;
+  border: 1px solid #FFDB46;
 }
 
 .avatarlist button:hover {
   border: 1px solid #444;
-  background-color: #99ffcc;
+  background-color: #FFDB46;
 }
 
 .ps-overlay {
@@ -453,8 +410,28 @@ a.subtle, .credits ul li p, .credits ul {
   border: 1px solid #777;
 }
 
-/* User Icons */
-
-#lobby-userlist-user-emggldragotic { 
-  background: rgba(244, 244, 244, 0.8) url("http://media.pldh.net/pokexycons/006.png") right no-repeat;
+.broadcast-blue {
+	background: #FFCC70;
+  border: 1px solid #996300;
+	color: #996300;
+  margin-bottom: 1px;
+ 	padding: 3px;
 }
+
+.broadcast-red {
+  border: 1px solid #A60000;
+  background: #FFB2B2;
+  color: #A60000;
+  margin-bottom: 1px;
+  padding: 3px;
+}
+
+.broadcast-green {
+  background: #77EE47;
+  border: 1px solid #1E581E;
+  color: #1E581E;
+  margin-bottom: 1px;
+  padding: 3px;
+}
+
+/* User Icons */
