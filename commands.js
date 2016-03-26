@@ -18,6 +18,7 @@
 const crypto = require('crypto');
 const fs = require('fs');
 const parseEmoticons = require('./chat-plugins/emoticons').parseEmoticons;
+const color = require('./config/color');
 
 const MAX_REASON_LENGTH = 300;
 const MUTE_LENGTH = 7 * 60 * 1000;
@@ -50,14 +51,14 @@ exports.commands = {
 			if (ranks.indexOf(rank) >= 0) {
 				let name = Users.usergroups[u].substr(1);
 				if (!rankLists[rank]) rankLists[rank] = [];
-				if (name) rankLists[rank].push(name);
+				if (name) rankLists[rank].push('<font style="color: ' + color(name) + ';">' + name + '</font>');
 			}
 		}
 
 		let buffer = Object.keys(rankLists).sort((a, b) =>
 			(Config.groups[b] || {rank: 0}).rank - (Config.groups[a] || {rank: 0}).rank
 		).map(r =>
-			(Config.groups[r] ? Config.groups[r].name + "s (" + r + ")" : r) + ":\n" + rankLists[r].sortBy(toId).join(", ")
+			(Config.groups[r] ? Config.groups[r].name + "s (" + r + ")" : r) + ":\n" + rankLists[r].sort((a, b) => toId(a).localeCompare(toId(b))).join(", ")
 		);
 
 		if (!buffer.length) buffer = "This server has no global authority.";
@@ -749,8 +750,8 @@ exports.commands = {
 
 		if (!targetUser) return this.errorReply("User '" + this.targetUsername + "' is not online.");
 
-        if (room.founder !== user.userid && !this.can('makeroom')) return this.errorReply('/roomowner - Access denied.');
-        if (!room.founder) return this.errorReply('The room needs to have a room founder before it can have a room owner.');
+        if (room.chatRoomData.founder !== user.userid && !this.can('makeroom')) return this.errorReply('/roomowner - Access denied.');
+        if (!room.chatRoomData.founder) return this.errorReply('The room needs to have a room founder before it can have a room owner.');
 
 		if (!room.auth) room.auth = room.chatRoomData.auth = {};
 
@@ -777,7 +778,7 @@ exports.commands = {
 		if (!userid || userid === '') return this.errorReply("User '" + name + "' not found.");
 
 		if (room.auth[userid] !== '#') return this.errorReply("User '" + name + "' is not a room owner.");
-        if (room.founder !== user.userid && !this.can('makeroom')) return this.errorReply('/roomowner - Access denied.');
+        if (room.chatRoomData.founder !== user.userid && !this.can('makeroom')) return this.errorReply('/roomowner - Access denied.');
 
 		delete room.auth[userid];
 		this.sendReply("(" + name + " is no longer Room Owner.)");
@@ -795,7 +796,7 @@ exports.commands = {
 	roompromote: function (target, room, user, connection, cmd) {
 		if (!room.auth) {
 			this.sendReply("/roompromote - This room isn't designed for per-room moderation");
-			return this.sendReply("Before setting room mods, you need to set it up with /roomowner");
+			return this.sendReply("Before setting room mods, you need to set it up with /roomfounder");
 		}
 		if (!target) return this.parse('/help roompromote');
 
@@ -818,7 +819,7 @@ exports.commands = {
 		let nextGroup = target;
 		if (target === 'deauth') {
 			nextGroup = Config.groupsranking[0];
-			if (room.chatRoomData.founder && room.chatRoomData.founder === targetUser.userid) delete room.founder;
+			if (room.chatRoomData.founder && room.chatRoomData.founder === targetUser.userid) delete room.chatRoomData.founder;
 		}
 		if (!nextGroup) {
 			return this.errorReply("Please specify a group such as /roomvoice or /roomdeauth");
@@ -835,7 +836,7 @@ exports.commands = {
 		if ((room.auth[userid] || Config.groupsranking[0]) === nextGroup) {
 			return this.errorReply("User '" + name + "' is already a " + groupName + " in this room.");
 		}
-		if (room.founder !== user.userid && !user.can('makeroom')) {
+		if (!user.can('makeroom')) {
 			if (currentGroup !== ' ' && !user.can('room' + (Config.groups[currentGroup] ? Config.groups[currentGroup].id : 'voice'), null, room)) {
 				return this.errorReply("/" + cmd + " - Access denied for promoting/demoting from " + (Config.groups[currentGroup] ? Config.groups[currentGroup].name : "an undefined group") + ".");
 			}
@@ -900,8 +901,8 @@ exports.commands = {
 
 		let buffer = [];
 
-		if (targetRoom.founder) {
-			buffer.push("Room Founder (#): " + (targetRoom.founder in targetRoom.users ? ("**" + targetRoom.users[targetRoom.founder].name + "**") : targetRoom.founder));
+		if (targetRoom.chatRoomData.founder) {
+			buffer.push("Room Founder (#): " + (targetRoom.chatRoomData.founder in targetRoom.users ? ("**" + targetRoom.users[targetRoom.chatRoomData.founder].name + "**") : targetRoom.chatRoomData.founder));
 		}
 
 		Object.keys(rankLists).sort((a, b) =>
@@ -1161,8 +1162,8 @@ exports.commands = {
 			return this.addModCommand("" + targetUser.name + " would be muted by " + user.name + problem + "." + (target ? " (" + target + ")" : ""));
 		}
 
-		if (targetUser in room.users) targetUser.popup("|modal|" + user.name + " has muted you in " + room.id + " for " + muteDuration.duration() + ". " + target);
-		this.addModCommand("" + targetUser.name + " was muted by " + user.name + " for " + muteDuration.duration() + "." + (target ? " (" + target + ")" : ""));
+		if (targetUser in room.users) targetUser.popup("|modal|" + user.name + " has muted you in " + room.id + " for " + Tools.toDurationString(muteDuration) + ". " + target);
+		this.addModCommand("" + targetUser.name + " was muted by " + user.name + " for " + Tools.toDurationString(muteDuration) + "." + (target ? " (" + target + ")" : ""));
 		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModCommand("(" + targetUser.name + "'s ac account: " + targetUser.autoconfirmed + ")");
 		let userid = targetUser.getLastId();
 		this.add('|unlink|' + userid);
@@ -1650,10 +1651,30 @@ exports.commands = {
 		if (!this.can('declare', null, room)) return false;
 		if (!this.canTalk()) return;
 
-		this.add('|raw|<div class="broadcast-blue"><b>' + Tools.escapeHTML(target) + '</b></div>');
+		this.add('|raw|<div class="broadcast-blue"><b>' + target + '</b></div>');
 		this.logModCommand(user.name + " declared " + target);
 	},
 	declarehelp: ["/declare [message] - Anonymously announces a message. Requires: # & ~"],
+	
+	declarered: function (target, room, user) {
+		if (!target) return this.parse('/help declare');
+		if (!this.can('declare', null, room)) return false;
+		if (!this.canTalk()) return;
+
+		this.add('|raw|<div class="broadcast-red"><b>' + target + '</b></div>');
+		this.logModCommand(user.name + " declared " + target);
+	},
+	declareredhelp: ["/declarered [message] - Anonymously announces a message. Requires: # & ~"],
+	
+	declaregreen: function (target, room, user) {
+		if (!target) return this.parse('/help declare');
+		if (!this.can('declare', null, room)) return false;
+		if (!this.canTalk()) return;
+
+		this.add('|raw|<div class="broadcast-green"><b>' + target + '</b></div>');
+		this.logModCommand(user.name + " declared " + target);
+	},
+	declaregreenhelp: ["/declaregreen [message] - Anonymously announces a message. Requires: # & ~"],
 
 	htmldeclare: function (target, room, user) {
 		if (!target) return this.parse('/help htmldeclare');
@@ -1857,8 +1878,8 @@ exports.commands = {
 				let bracketIndex = line.indexOf(']');
 				let parenIndex = line.indexOf(')');
 				if (bracketIndex < 0) return Tools.escapeHTML(line);
-				let time = line.slice(1, bracketIndex);
-				let timestamp = new Date(time).format('{yyyy}-{MM}-{dd} {hh}:{mm}{tt}');
+				const time = line.slice(1, bracketIndex);
+				let timestamp = Tools.toTimeStamp(new Date(time), {hour12: true});
 				parenIndex = line.indexOf(')');
 				let roomid = line.slice(bracketIndex + 3, parenIndex);
 				if (!hideIps && Config.modloglink) {
@@ -2258,7 +2279,7 @@ exports.commands = {
 			this.sendReply('||<< ' + eval(target));
 			/* eslint-enable no-unused-vars */
 		} catch (e) {
-			this.sendReply('|| << ' + ('' + e.stack).replace(/\n *at Context\.exports\.commands\.eval [\s\S]*/m, '').replace(/\n/g, '\n||'));
+			this.sendReply('|| << ' + ('' + e.stack).replace(/\n *at CommandContext\.exports\.commands(\.[a-z0-9]+)*\.eval [\s\S]*/m, '').replace(/\n/g, '\n||'));
 		}
 	},
 
