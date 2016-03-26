@@ -91,12 +91,12 @@ function currencyName(amount) {
 
 Profile.prototype.avatar = function () {
 	if (this.isOnline) {
-		if (typeof this.image === 'string') return img(this.url + ':' + Config.port + '/avatars/' + this.image);
+		if (typeof this.image === 'string') return img(this.url + '/avatars/' + this.image);
 		return img('http://play.pokemonshowdown.com/sprites/trainers/' + this.image + '.png');
 	}
 	for (let name in Config.customAvatars) {
 		if (this.username === name) {
-			return img(this.url + ':' + Config.port + '/avatars/' + Config.customAvatars[name]);
+			return img(this.url + '/avatars/' + Config.customAvatars[name]);
 		}
 	}
 	let selectedSprite = trainersprites[Math.floor(Math.random() * trainersprites.length)];
