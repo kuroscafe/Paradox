@@ -185,7 +185,7 @@ exports.customavatars = {
 };
 
 // custom avatars appear in profile by specifiying server url.
-exports.avatarurl = '';
+exports.avatarurl = 'http://aurora.kota.moe/';
 
 // Tournament announcements
 // When tournaments are created in rooms listed below, they will be announced in
