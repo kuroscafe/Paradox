@@ -1,3 +1,5 @@
+// The codes a bit messy, but meh
+
 /**
  * 
  * Slots.js Made By Dragotic. 
