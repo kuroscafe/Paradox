@@ -1,5 +1,3 @@
-// I know the codes a bit off, but meh.
-
 /**
  * 
  * Slots.js Made By Dragotic. 
@@ -81,8 +79,18 @@ exports.commands = {
                 Db('money').set(user.userid, (amount + slots[result]));
                 return this.sendReplyBox(display(true, user.name, result, result, result));
             }
+            
+            // Incase all outcomes are same, it'll resort to changing the first one.
+            let outcomeOne = spin();
+            let outcomeTwo = spin();
+            let outcomeThree = spin();
+            
+            while (outcomeOne === outcomeTwo && outcomeTwo === outcomeThree) {
+                outcomeOne = spin();
+            }
+
             Db('money').set(user.userid, (amount - 3));
-            return this.sendReplyBox(display(false, user.name, spin(), spin(), spin()));
+            return this.sendReplyBox(display(false, user.name, outcomeOne, outcomeTwo, outcomeThree));
         },
         '': function(target, room, user) {
             return this.parse('/help slots');
@@ -91,13 +99,14 @@ exports.commands = {
     slotshelp: ['Slots is a casino game. ' + 
     'It awards the user with varying amount of bucks depending on the streak of pokemon they user gets.' + 
     'Following Are Slots Winnings: \n' +
-    'Bulbasaur :  5 bucks' + '\n' +
-    'Squirtle  : 10 bucks' + '\n' +
-    'Charmander: 15 bucks' + '\n' +
-    'Pikachu   : 20 bucks' + '\n' +
-    'Eevee     : 25 bucks' + '\n' +
-    'Dragonite : 30 bucks' + '\n' +
-    'Mew       : 35 bucks' + '\n' +
-    'Mewtwo    : 40 bucks' + '\n' +
+    'Bulbasaur :  3 bucks' + '\n' +
+    'Squirtle  :  6 bucks' + '\n' +
+    'Charmander:  9 bucks' + '\n' +
+    'Pikachu   : 12 bucks' + '\n' +
+    'Eevee     : 15 bucks' + '\n' +
+    'Snorlax   : 17 bucks' + '\n' +
+    'Dragonite : 21 bucks' + '\n' +
+    'Mew       : 24 bucks' + '\n' +
+    'Mewtwo    : 27 bucks' + '\n' +
     'Use "/slots spin" to play the game.'],
 };
