@@ -97,7 +97,7 @@ exports.commands = {
         },
     },
     slotshelp: ['Slots is a casino game. ' + 
-    'It awards the user with varying amount of bucks depending on the streak of pokemon they user gets.' + 
+    'It awards the user with varying amount of bucks depending on the streak of pokemon they user gets.' + '\n' +
     'Following Are Slots Winnings: \n' +
     'Bulbasaur :  3 bucks' + '\n' +
     'Squirtle  :  6 bucks' + '\n' +
