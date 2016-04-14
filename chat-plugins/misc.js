@@ -6,6 +6,7 @@
 
 let moment = require('moment');
 let request = require('request');
+let color = require('../config/color');
 
 let messages = [
 	"has vanished into nothingness!",
@@ -222,11 +223,11 @@ exports.commands = {
 		if (!this.canBroadcast()) return;
 		if (!target) return this.parse('/help seen');
 		let targetUser = Users.get(target);
-		if (targetUser && targetUser.connected) return this.sendReplyBox(targetUser.name + " is <b>currently online</b>.");
+		if (targetUser && targetUser.connected) return this.sendReplyBox("<font color='" + color(targetUser.name) + "'>" + targetUser.name + "</font> is <b>currently online</b>.");
 		target = Tools.escapeHTML(target);
 		let seen = Db('seen').get(toId(target));
-		if (!seen) return this.sendReplyBox(target + " has never been online on this server.");
-		this.sendReplyBox(target + " was last seen <b>" + moment(seen).fromNow() + "</b>.");
+		if (!seen) return this.sendReplyBox("<font color='" + color(target) + "'>" + target + "</font> has never been online on this server.");
+		this.sendReplyBox("<font color= '" + color(target) + "'>" + target "</font> was last seen <b>" + moment(seen).fromNow() + "</b>.");
 	},
 	seenhelp: ["/seen - Shows when the user last connected on the server."],
 
